@@ -1,0 +1,8 @@
+No grafo que você descreveu, há um ciclo presente, o que impede a existência de uma ordenação topológica. Uma ordenação topológica é uma ordenação linear dos vértices de um grafo direcionado acíclico (DAG), onde cada aresta vai de um vértice anterior para um vértice posterior na ordenação. 
+
+No seu grafo, o ciclo é formado pelas arestas que conectam os vértices 1, 2, 3 e 4. Mais especificamente, o vértice 1 aponta para o vértice 2, que por sua vez aponta para o vértice 3, e o vértice 3 aponta de volta para o vértice 1. Esse ciclo torna impossível estabelecer uma ordem linear onde todos os vértices tenham arestas direcionadas para vértices posteriores.
+
+Uma ordenação topológica só é possível em um DAG, ou seja, em um grafo direcionado sem ciclos. Quando há ciclos, não há uma sequência linear única que satisfaça as restrições de direção das arestas.
+
+Portanto, no caso do seu grafo com o ciclo, não é possível obter uma ordenação topológica.
+
