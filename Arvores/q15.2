@@ -1,0 +1,10 @@
+
+A busca em largura (BFS - Breadth-First Search) é um algoritmo de busca utilizado para explorar grafos. A característica principal da BFS é que ela visita todos os vértices de um mesmo nível antes de explorar os vértices de níveis mais profundos.
+
+Quando aplicada a um grafo não ponderado, a BFS visita os vértices em ordem de sua distância em relação à origem, ou seja, o primeiro vértice é a origem, os vértices adjacentes a ele são visitados em seguida, seguidos pelos vértices adjacentes aos vértices visitados anteriormente, e assim por diante.
+
+Dessa forma, a BFS explora o grafo em "ondas" concêntricas, onde cada onda representa um nível de distância em relação à origem. Portanto, quando a BFS encontra um vértice de destino, é garantido que esse vértice está no menor caminho possível em relação à origem. Isso ocorre porque, se houvesse um caminho mais curto, a BFS teria encontrado esse vértice antes de explorar outros vértices em níveis mais profundos.
+
+Em outras palavras, a BFS visita os vértices em ordem crescente de distância em relação à origem, e quando um vértice de destino é encontrado, esse é o primeiro caminho encontrado e, portanto, tem cumprimento mínimo.
+
+No entanto, é importante observar que essa garantia é válida apenas para grafos não ponderados. Se o grafo for ponderado, ou seja, tiver arestas com pesos diferentes, a BFS não garante a descoberta do caminho mínimo, pois a ordem de visitação dos vértices pode não corresponder à menor distância em termos de pesos das arestas.
