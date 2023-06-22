@@ -62,8 +62,8 @@ class Arvore {
 			
 		}
 		 //obs: pg 209 figura 6.23
-		void insert(T el){
-			ArvoreNo<T> *p = root, *prev = nullptr;
+        void insert(T el){
+            ArvoreNo<T> *p = root, *prev = nullptr;
             while (p != nullptr) {
                 prev = p;
                 if (el < p->el)
@@ -78,9 +78,9 @@ class Arvore {
             } else {
                 prev->right = new ArvoreNo<T>(el);
             }
-    
-    backbone(root); // Chama o backbone para balancear a árvore após a inserção
-		
+        
+            backbone(root); // Chama o backbone para balancear a árvore após a inserção
+        }		
 		void percusoExtensao(){
 			queue<ArvoreNo<T>*> f;
 			ArvoreNo<T> *p=root;
@@ -128,29 +128,82 @@ class Arvore {
                 }
             }			
         }
+        
+        void rebalance() {
+            ArvoreNo<T>* p = root;
+            int n = 0;
+        
+            // Passo 1: Transformar a árvore em uma linha reta (backbone)
+            backbone(p);
+        
+            // Passo 2: Realizar as rotações para reequilibrar a árvore
+            while (n < size - 1) {
+                p = root;
+                int m = pow(2, floor(log2(size - n + 1))) - 1;
+                balance(p, m);
+                n += m;
+            }
+        }
+        
+        void rotateRight(ArvoreNo<T>*& p) {
+            if (p == nullptr || p->left == nullptr)
+                return;
+        
+            ArvoreNo<T>* q = p->left;
+            p->left = q->right;
+            q->right = p;
+            p = q;
+        }
+        
+        void reduce() {
+          ArvoreNo<T> *curr = root;
+          ArvoreNo<T> *prev = nullptr;
+          ArvoreNo<T> *prevRight = nullptr;
+        
+          while (curr != nullptr) {
+            if (curr->left != nullptr) {
+              // Realiza uma rotação para a esquerda
+              ArvoreNo<T> *temp = curr->left;
+              curr->left = temp->right;
+              temp->right = curr;
+              if (prev == nullptr) {
+                root = temp;
+              } else {
+                if (prevRight == nullptr) {
+                  prev->left = temp;
+                } else {
+                  prev->right = temp;
+                }
+              }
+              curr = temp;
+            }
+        
+            // Atualiza os ponteiros dos nós anteriores
+            prev = curr;
+            prevRight = curr->right;
+            curr = curr->right;
+          }
+}
 	};
 	
 	
-main(){
-	
-	Arvore<int> *a=new Arvore<int>();
+int main() {
+    Arvore<int>* a = new Arvore<int>();
 
-	a->insert(20);
-	
-	
-	a->preorder(a->getRoot());
+    a->insert(20);
+    a->insert(10);
+    a->insert(30);
+    a->insert(5);
+    a->insert(15);
 
-		
-	
-	
-	cout<<"---Apos as rotacoes -----"<<endl;
-	a->preorder(a->getRoot());
-	
+    cout << "Árvore antes do reequilíbrio:" << endl;
+    a->preorder(a->getRoot());
 
+    cout << "--- Após as rotações ---" << endl;
+    a->rebalance();
 
-	
+    cout << "Árvore após o reequilíbrio:" << endl;
+    a->preorder(a->getRoot());
 
-	
-   	
-   	
+    return 0;
 }
